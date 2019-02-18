@@ -2,9 +2,23 @@ from django.db import models
 
 # Create your models here.
 
+class HeaderType(models.Model):
+    """(HeaderType description)"""
+    type = models.CharField(blank=True, max_length=100)
+
+
+    def __unicode__(self):
+        return u"HeaderType"
+
+    def __str__(self):
+        return self.type
+
+
+
 class HeaderData(models.Model):
     """(HeaderData description)"""
-    type = models.CharField(blank=True, max_length=100)
+    # type = models.CharField(blank=True, max_length=100)
+    type = models.ForeignKey(HeaderType, on_delete = models.SET_NULL, null=True, blank=True)
     name = models.CharField(blank=True, max_length=100)
     url = models.CharField(blank=True, max_length=100)
     color_code = models.CharField(blank=True, max_length=100)
@@ -12,6 +26,9 @@ class HeaderData(models.Model):
 
     def __unicode__(self):
         return u"HeaderData"
+
+    def __str__(self):
+        return "{} {}".format(self.name, self.type.type)
 
 
 class ContactInfo(models.Model):
