@@ -39,7 +39,7 @@
         <ul class="navbar-nav text-uppercase ml-auto">
           {% for header in header_content %}
             <li class="{{ header.type.type }}">
-              <a class="nav-link js-scroll-trigger" href="{{ header.url }}">{{ header.name }}</a>
+              <a class="nav-link js-scroll-trigger" href="{% url 'redirect_page' url_path=header.url %}">{{ header.name }}</a>
             </li>
           {% endfor %}
 
