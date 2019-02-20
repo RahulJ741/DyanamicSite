@@ -1,6 +1,35 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
+
+def thumbnail_upload(instance, filename):
+    return 'Template/{}'.format(filename)
+
+
+class TemplateList(models.Model):
+    """(TemplateList description)"""
+    name = models.CharField(blank=True, max_length=100)
+    thumbnail = models.FileField(upload_to=thumbnail_upload)
+    type = models.CharField(blank=True, max_length=100)
+
+    def __unicode__(self):
+        return u"TemplateList"
+
+
+
+
+class Project(models.Model):
+    """(Project description)"""
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    project_name = models.CharField(blank=True, max_length=100)
+    template = models.OneToOneField(TemplateList, on_delete=models.SET_NULL, null=True, blank=True)
+
+    def __unicode__(self):
+        return u"Project"
+
+
+
 
 class HeaderTypes(models.Model):
     """(HeaderType description)"""
@@ -44,6 +73,7 @@ class ContactInfo(models.Model):
 
 class MainContent(models.Model):
     """(MainContent description)"""
+    header = models.ForeignKey(HeaderData, on_delete=models.SET_NULL, null=True, blank=True)
     name = models.CharField(blank=True, max_length=100)
     url = models.CharField(blank=True, max_length=100)
     header_content = models.CharField(blank=True, max_length=100)
