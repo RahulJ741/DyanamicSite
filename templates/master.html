@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    {% load static %}
+    <meta charset="utf-8">
+    <title>{{ project }}</title>
+    {% block styling %}{% endblock styling %}
+  </head>
+  <body>
+    {% block main_content %}
+      {% comment %}
+        update the i else for the template selected or implement something else to minimize the code
+      {% endcomment %}
+      {% if  %}{% else %}{% endif %}
+    {% endblock main_content %}
+
+    {% block script_links %}{% endblock script_links %}
+    {% block script_data %}{% endblock script_data %}
+  </body>
+</html>

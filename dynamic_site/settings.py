@@ -82,6 +82,8 @@ DATABASES = {
 }
 
 
+AUTHENTICATION_BACKENDS = ['dynamic_site.authentication_backend.EmailValidatorBackend']
+
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 
