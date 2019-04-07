@@ -3,6 +3,7 @@ from django.views import View
 from .models import *
 from .forms import LoginForm
 from django.contrib.auth import authenticate , login, logout
+from django.views.generic.list import ListView
 # Create your views here.
 
 
@@ -21,7 +22,7 @@ class Login(View):
             user = authenticate(username = form_data.data['email'], password = form_data.data['password'])
             if user and user.is_active:
                 login(request,user)
-                response = redirect('')
+                response = redirect('project_list')
                 return response
 
         return redirect('login')
@@ -40,19 +41,38 @@ class SignUP(View):
         pass
 
 
+
+
+class ProjectList(ListView):
+    context_object_name = 'project_list'
+    model = Project
+    # page_kwarg = 'page'
+    # paginate_by =
+    template_name = 'project_list.html'
+
+    def get_queryset(self):
+        return Project.objects.filter(user = self.request.user)
+
+    def get_context_data(self, **kwargs):
+        # kwargs['test'] = "this is test text just to see if this is rendered in template"
+        context = super(ProjectList, self).get_context_data(**kwargs)
+        context['new_text'] = "this is test text just to see if this is rendered in template"
+        return context
+
+
+
 class ProjectCreation(View):
     """docstring for ProjectCreation."""
-    def __init__(self, arg):
-        super(ProjectCreation, self).__init__()
-        self.arg = arg
+    # def __init__(self, arg):
+    #     super(ProjectCreation, self).__init__()
+    #     self.arg = arg
 
     def get(self, request):
         pass
 
+
     def post(self, request):
         pass
-
-
 
 
 

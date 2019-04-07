@@ -25,7 +25,7 @@ SECRET_KEY = '6nu2xyfgd*q_7-8w7b(8m8uc0rbtz)97zgrs%imz4ey@1h@f@+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,10 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 'django_hosts',
     'home.apps.HomeConfig',
+
 ]
 
 MIDDLEWARE = [
+    # 'django_hosts.middleware.HostsRequestMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -48,9 +51,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'django_hosts.middleware.HostsResponseMiddleware',
 ]
 
 ROOT_URLCONF = 'dynamic_site.urls'
+# ROOT_HOSTCONF = 'dynamic_site.hosts'
+
+# DEFAULT_HOST = 'admin'
 
 TEMPLATES = [
     {
@@ -118,7 +125,7 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.1/howto/static-files/
+# https://docs.djangoproject.com/enROOT_HOSTCONF/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (

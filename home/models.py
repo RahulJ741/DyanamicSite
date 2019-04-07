@@ -23,7 +23,7 @@ class Project(models.Model):
     """(Project description)"""
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     project_name = models.CharField(blank=True, max_length=100)
-    template = models.OneToOneField(TemplateList, on_delete=models.SET_NULL, null=True, blank=True)
+    template = models.ForeignKey(TemplateList, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __unicode__(self):
         return u"Project"

@@ -1,0 +1,37 @@
+{% extends "master.html" %}
+{% block styling %}{% endblock styling %}
+{% block main_content %}
+  <div class="row">
+    <div class="col-md-12">
+      <a href="#" class="btn btn-primary">Create Project</a>
+
+      <!-- <button type="button" name="button" class="btn btn-primary">Create Project</button> -->
+    </div>
+  </div>
+  <br>
+
+    {{ new_text }}
+    <progress value="55" max="100">55%</progress>
+
+  {% for project in project_list %}
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src="{{ project.template.thumbnail.url }}" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">{{ project.project_name }}</h5>
+            <h3>{{ project.template.thumbnail }}</h3>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% empty %}
+      <h3>No Project yet add one</h3>
+  {% endfor %}
+
+
+{% endblock main_content %}
+{% block script_links %}{% endblock script_links %}
+{% block script_data %}{% endblock script_data %}
