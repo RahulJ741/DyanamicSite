@@ -1,7 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.text import slugify
+from django.conf import settings
 
 # Create your models here.
+ProjectType = (('I','Individual'), ('Co', 'Company Project'), ('T', 'Test'))
+
 
 def thumbnail_upload(instance, filename):
     return 'Template/{}'.format(filename)
@@ -16,17 +20,26 @@ class TemplateList(models.Model):
     def __unicode__(self):
         return u"TemplateList"
 
+    def __str__(self):
+        return "{}/{}".format(settings.MEDIA_ROOT,self.thumbnail)
+
 
 
 
 class Project(models.Model):
     """(Project description)"""
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    project_name = models.CharField(blank=True, max_length=100)
+    project_name = models.CharField(max_length=100)
     template = models.ForeignKey(TemplateList, on_delete=models.SET_NULL, null=True, blank=True)
+    project_type = models.CharField(max_length=100, choices=ProjectType, default='I')
+    slug = models.SlugField(null=True, blank=True)
 
     def __unicode__(self):
         return u"Project"
+
+    def save(self,*args, **kwargs):
+        self.slug = slugify(self.project_name)
+        super(Project, self).save(*args, **kwargs)
 
 
 

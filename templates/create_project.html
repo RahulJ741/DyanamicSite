@@ -1,0 +1,17 @@
+{% load static %}
+<form class="" action="{% url 'create_project' %}" method="post">
+  {% csrf_token %}
+
+  {{ form.project_name }}
+
+  {% for field in form.template %}
+
+    {{ field.tag }}
+    <img src="{{ field.choice_label }}" alt="" style="height:60px">
+
+  {% endfor %}
+
+
+  <button type="submit" name="button">save</button>
+
+</form>

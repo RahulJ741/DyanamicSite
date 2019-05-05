@@ -4,6 +4,10 @@ from .models import *
 from .forms import LoginForm
 from django.contrib.auth import authenticate , login, logout
 from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView
+from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
+from dynamic_site.forms import ProjectForm
 # Create your views here.
 
 
@@ -61,18 +65,40 @@ class ProjectList(ListView):
 
 
 
-class ProjectCreation(View):
-    """docstring for ProjectCreation."""
-    # def __init__(self, arg):
-    #     super(ProjectCreation, self).__init__()
-    #     self.arg = arg
 
-    def get(self, request):
-        pass
+class ProjectDetails(DetailView):
+    model = Project
+    context_object_name = 'project'
+    http_method_names = ['get']
+    # slug_field = 'SLUG_FIELD'
+    # slug_url_kwarg = 'SLUG_URL_KWARG'
+    # success_url = 'SUCCESS_URL'
+    template_name = 'project_details.html'
+
+    def http_method_not_allowed(self, *arg, **kwargs):
+        super(ProjectDetails, self).http_method_not_allowed(*arg, **kwargs)
+        return HttpResponse('Only get method is allowed')
 
 
-    def post(self, request):
-        pass
+
+
+class ProjectCreation(CreateView):
+    model = Project
+    form_class = ProjectForm
+    # success_url = 'SUCCESS_URL'
+    template_name = 'create_project.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ProjectCreation, self).get_context_data(**kwargs)
+        context['templates'] = TemplateList.objects.all()
+        return context
+
+    def form_invalid(self, form):
+        return self.render_to_response(self.get_context_data(form=form))
+
+    def form_valid(self, form):
+        return HttpResponse('asdfasdfadf')
+
 
 
 

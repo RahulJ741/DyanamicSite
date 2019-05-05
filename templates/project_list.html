@@ -3,15 +3,18 @@
 {% block main_content %}
   <div class="row">
     <div class="col-md-12">
-      <a href="#" class="btn btn-primary">Create Project</a>
+      <a href="{% url 'create_project' %}" class="btn btn-primary">Create Project</a>
 
       <!-- <button type="button" name="button" class="btn btn-primary">Create Project</button> -->
     </div>
   </div>
   <br>
 
-    {{ new_text }}
-    <progress value="55" max="100">55%</progress>
+
+    <address class="">
+      this is extra data rendered from views: --->
+      {{ new_text }}
+    </address>
 
   {% for project in project_list %}
     <div class="row">
@@ -22,7 +25,7 @@
             <h5 class="card-title">{{ project.project_name }}</h5>
             <h3>{{ project.template.thumbnail }}</h3>
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <a href="{% url 'project_details' slug=project.slug %}" class="btn btn-primary">Go somewhere</a>
           </div>
         </div>
       </div>
